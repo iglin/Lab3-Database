@@ -170,20 +170,20 @@ public class NewRecordActivity extends AppCompatActivity implements DatePickerDi
 
         LinearLayout layout = (LinearLayout)findViewById(R.id.picsLayout);
         List<RecordPicture> list = new ArrayList<>(layout.getChildCount());
+        Log.i(getClass().getName(), "VIEWS COUNT = " + layout.getChildCount());
         for (int i = 0; i < layout.getChildCount(); i++) {
             View v = layout.getChildAt(i);
             if (v instanceof ImageView) {
+                Log.i(getClass().getName(), "GOT PIC!");
                 Bitmap bitmap = ((BitmapDrawable) ((ImageView) v).getDrawable()).getBitmap();
                 list.add(new RecordPicture(bitmap));
             }
         }
         if (!list.isEmpty()) {
             timeRecord.setPics(list);
+            Log.i(getClass().getName(), "LIST SIZE " + timeRecord.getPics().size());
         }
 
-        Log.i(getClass().getName(), "START DATE " + new Date(timeRecord.getStartTime()).toString());
-        Log.i(getClass().getName(), "END DATE " + new Date(timeRecord.getEndTime()).toString());
-        Log.i(getClass().getName(), "DURATION " + timeRecord.getDuration());
 
         contentProvider.insertRecord(timeRecord);
         onBackPressed();

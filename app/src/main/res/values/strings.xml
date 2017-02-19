@@ -21,4 +21,5 @@
     <string name="start_time_error">Пожалуйста, укажите время начала.</string>
     <string name="end_time_error">Пожалуйста, укажите время окончания.</string>
     <string name="time_error">Время начала должно быть меньше времени окончания.</string>
+    <string name="photo">Фото</string>
 </resources>

@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int CM_DELETE_ID = 1;
 
+    public static final String DETAILS_RECORD_ID = "record_id";
+
     private TimeTrackingContentProvider contentProvider;
 
     private List<TimeRecord> recordsList;
@@ -45,6 +47,16 @@ public class MainActivity extends AppCompatActivity {
         loadRecords();
         ListView lvData = (ListView) findViewById(R.id.listView);
         registerForContextMenu(lvData);
+
+        lvData.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                TimeRecord timeRecord = (TimeRecord) adapterView.getItemAtPosition(position);
+                Intent intent = new Intent(getApplicationContext(), DetailsActivity.class);
+                intent.putExtra(DETAILS_RECORD_ID, timeRecord.getId());
+                startActivity(intent);
+            }
+        });
         // добавляем контекстное меню к списку
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

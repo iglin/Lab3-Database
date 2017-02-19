@@ -1,6 +1,7 @@
 package com.iglin.lab3_database;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,8 +35,9 @@ public class RecordListAdapter extends ArrayAdapter<TimeRecord> {
         super(context, resource, items);
     }
 
+    @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
 
         View v = convertView;
 

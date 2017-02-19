@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.iglin.lab3_database.db.TimeTrackingDbContract.*;
 import com.iglin.lab3_database.model.RecordPicture;
@@ -118,7 +119,7 @@ public class TimeTrackingContentProvider {
         };
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
-        String selection = Record._ID + " = ?";
+        String selection = Picture.COLUMN_NAME_RECORD + " = ?";
         String[] selectionArgs = { String.valueOf(recordId) };
 
         return db.query(
@@ -161,6 +162,7 @@ public class TimeTrackingContentProvider {
         record.setId(id);
 
         if (record.getPics() != null && !record.getPics().isEmpty()) {
+            Log.i(getClass().getName(), "SAVING PICS:" + record.getPics().size());
             for (RecordPicture picture : record.getPics()) {
                 ContentValues contentValues = new ContentValues();
                 contentValues.put(Picture.COLUMN_NAME_PICTURE, bitmapToBytesArray(picture.getPicture()));
@@ -171,6 +173,8 @@ public class TimeTrackingContentProvider {
                         null,
                         contentValues);
                 picture.setId(newRowId);
+
+                Log.i(getClass().getName(), "SAVED PIC WITH ID " + picture.getId());
             }
         }
         db.close();
