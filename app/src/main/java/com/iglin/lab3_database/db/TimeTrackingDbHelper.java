@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.iglin.lab3_database.model.*;
 
+import java.util.Calendar;
+
 import static com.iglin.lab3_database.db.TimeTrackingDbContract.*;
 
 /**
@@ -14,7 +16,7 @@ import static com.iglin.lab3_database.db.TimeTrackingDbContract.*;
  */
 
 public class TimeTrackingDbHelper extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "TimeTracking.db";
 
     private static final String TEXT_TYPE = "TEXT";
@@ -33,7 +35,10 @@ public class TimeTrackingDbHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_TABLE_PICTURE =
             "CREATE TABLE " + Picture.TABLE_NAME + " (" +
                     Picture._ID + " INTEGER PRIMARY KEY, " +
-                    Picture.COLUMN_NAME_PICTURE + " " + BLOB_TYPE +
+                    Picture.COLUMN_NAME_RECORD + " " + INT_TYPE + ", " +
+                    Picture.COLUMN_NAME_PICTURE + " " + BLOB_TYPE + ", " +
+                    " FOREIGN KEY(" + Picture.COLUMN_NAME_RECORD + ") REFERENCES "
+                    + Record.TABLE_NAME + "(" + Record._ID + ") " +
                     " )";
     private static final String SQL_DROP_TABLE_PICTURE = "DROP TABLE IF EXISTS " + Picture.TABLE_NAME;
 
@@ -50,19 +55,6 @@ public class TimeTrackingDbHelper extends SQLiteOpenHelper {
                     " )";
     private static final String SQL_DROP_TABLE_RECORD = "DROP TABLE IF EXISTS " + Record.TABLE_NAME;
 
-    private static final String SQL_CREATE_TABLE_RECORD_PICTURES =
-            "CREATE TABLE " + RecordPisctures.TABLE_NAME + " (" +
-                    RecordPisctures.COLUMN_NAME_PICTURE + " " + INT_TYPE + ", " +
-                    RecordPisctures.COLUMN_NAME_RECORD + " " + INT_TYPE + ", " +
-                    "PRIMARY KEY (" + RecordPisctures.COLUMN_NAME_PICTURE + ", " +
-                        RecordPisctures.COLUMN_NAME_RECORD + "), " +
-                    " FOREIGN KEY(" + RecordPisctures.COLUMN_NAME_RECORD + ") REFERENCES "
-                    + Record.TABLE_NAME + "(" + Record._ID + "), " +
-                    " FOREIGN KEY(" + RecordPisctures.COLUMN_NAME_PICTURE + ") REFERENCES "
-                    + Picture.TABLE_NAME + "(" + Picture._ID + ") " +
-                    " )";
-    private static final String SQL_DROP_TABLE_RECORD_PICTURES = "DROP TABLE IF EXISTS " + RecordPisctures.TABLE_NAME;
-
     TimeTrackingDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -71,7 +63,6 @@ public class TimeTrackingDbHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_TABLE_CATEGORY);
         db.execSQL(SQL_CREATE_TABLE_PICTURE);
         db.execSQL(SQL_CREATE_TABLE_RECORD);
-        db.execSQL(SQL_CREATE_TABLE_RECORD_PICTURES);
 
         for (TimeCategory timeCategory : TimeCategory.values()) {
             ContentValues values = new ContentValues();
@@ -82,9 +73,8 @@ public class TimeTrackingDbHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // This database is only a cache for online data, so its upgrade policy is
         // to simply to discard the data and start over
-        db.execSQL(SQL_DROP_TABLE_RECORD_PICTURES);
-        db.execSQL(SQL_DROP_TABLE_RECORD);
         db.execSQL(SQL_DROP_TABLE_PICTURE);
+        db.execSQL(SQL_DROP_TABLE_RECORD);
         db.execSQL(SQL_DROP_TABLE_CATEGORY);
         onCreate(db);
     }

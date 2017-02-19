@@ -59,9 +59,7 @@ public class TimeTrackingContentProvider {
                 Category.COLUMN_NAME_NAME
         };
 
-        // Define 'where' part of query.
         String selection = Category._ID + " = ?";
-// Specify arguments in placeholder order.
         String[] selectionArgs = {String.valueOf(categoryId)};
 
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
@@ -101,22 +99,37 @@ public class TimeTrackingContentProvider {
         );
     }
 
-    public Cursor getPictures(int recordId) {
-        /*String[] projection = {
-                RecordPisctures.COLUMN_NAME_RECORD,
-                RecordPisctures.COLUMN_NAME_PICTURE
-        };
-        String selection = RecordPisctures.COLUMN_NAME_RECORD + " = ?";
-        String[] selectionArgs = {String.valueOf(recordId)};
-*/
+/*    public Cursor getPictures(int recordId) {
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
-       // Cursor cursor = db.query(RecordPisctures.TABLE_NAME, projection, selection, selectionArgs, null, null, null);
 
-        return db.rawQuery("SELECT " + Picture._ID + ", " + Picture.COLUMN_NAME_PICTURE + " FROM " + Picture.TABLE_NAME
+        return db.rawQuery("SELECT " + Picture._ID + ", " + Picture.COLUMN_NAME_RECORD + ", " + Picture.COLUMN_NAME_PICTURE
+                        + " FROM " + Picture.TABLE_NAME
                 + " WHERE " + Picture._ID + " IN (SELECT " + RecordPisctures.COLUMN_NAME_PICTURE
                 + " FROM " + RecordPisctures.TABLE_NAME
                 + " WHERE " + RecordPisctures.COLUMN_NAME_RECORD + " = ?)",
                 new String[] {String.valueOf(recordId)});
+    }*/
+
+    public Cursor getPictures(int recordId) {
+        String[] projection = {
+                Picture._ID,
+                Picture.COLUMN_NAME_RECORD,
+                Picture.COLUMN_NAME_PICTURE
+        };
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
+        String selection = Record._ID + " = ?";
+        String[] selectionArgs = { String.valueOf(recordId) };
+
+        return db.query(
+                Picture.TABLE_NAME,  // The table to query
+                projection,                               // The columns to return
+                selection,                                // The columns for the WHERE clause
+                selectionArgs,                            // The values for the WHERE clause
+                null,                                     // don't group the rows
+                null,                                     // don't filter by row groups
+                null                                 // The sort order
+        );
     }
 
     public TimeRecord insertRecord(TimeRecord record) {
@@ -151,20 +164,16 @@ public class TimeTrackingContentProvider {
             for (RecordPicture picture : record.getPics()) {
                 ContentValues contentValues = new ContentValues();
                 contentValues.put(Picture.COLUMN_NAME_PICTURE, bitmapToBytesArray(picture.getPicture()));
+                contentValues.put(Picture.COLUMN_NAME_RECORD, id);
                 int newRowId;
                 newRowId = (int) db.insert(
                         Picture.TABLE_NAME,
                         null,
                         contentValues);
                 picture.setId(newRowId);
-
-                values = new ContentValues();
-                values.put(RecordPisctures.COLUMN_NAME_PICTURE, newRowId);
-                values.put(RecordPisctures.COLUMN_NAME_RECORD, id);
-                db.insert(RecordPisctures.TABLE_NAME, null, values);
             }
         }
-
+        db.close();
         return record;
     }
 
@@ -225,6 +234,7 @@ public class TimeTrackingContentProvider {
             picCursor.close();
         }
         cursor.close();
+        db.close();
         return timeRecord;
     }
 
@@ -284,17 +294,33 @@ public class TimeTrackingContentProvider {
             list.add(timeRecord);
         }
         cursor.close();
+        db.close();
         return list;
     }
 
     public void deleteRecord(int id) {
         TimeRecord timeRecord = getRecord(id);
-        String selection = Picture._ID + " = ?";
+        String selection = Record._ID + " = ?";
         String[] selectionArgs = { String.valueOf(id) };
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
         db.delete(Record.TABLE_NAME, selection, selectionArgs);
 
-      //  selection =  + " = ?";
+        selection = Picture.COLUMN_NAME_RECORD + " = ?";
+        selectionArgs = new String[] { String.valueOf(id) };
+        db.delete(Picture.TABLE_NAME, selection, selectionArgs);
+        db.close();
+    }
+
+    public void deleteRecord(TimeRecord timeRecord) {
+        String selection = Record._ID + " = ?";
+        String[] selectionArgs = { String.valueOf(timeRecord.getId()) };
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        db.delete(Record.TABLE_NAME, selection, selectionArgs);
+
+        selection = Picture.COLUMN_NAME_RECORD + " = ?";
+        selectionArgs = new String[] { String.valueOf(timeRecord.getId()) };
+        db.delete(Picture.TABLE_NAME, selection, selectionArgs);
+        db.close();
     }
 
     private byte[] bitmapToBytesArray(Bitmap bitmap) {

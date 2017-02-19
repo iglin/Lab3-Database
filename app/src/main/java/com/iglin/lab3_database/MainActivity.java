@@ -31,7 +31,8 @@ public class MainActivity extends AppCompatActivity {
 
     private TimeTrackingContentProvider contentProvider;
 
-    List<TimeRecord> recordsList;
+    private List<TimeRecord> recordsList;
+    private RecordListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +109,8 @@ public class MainActivity extends AppCompatActivity {
         if (item.getItemId() == CM_DELETE_ID) {
             // получаем из пункта контекстного меню данные по пункту списка
             AdapterView.AdapterContextMenuInfo acmi = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+            TimeRecord timeRecord = adapter.getItem(acmi.position);
+            contentProvider.deleteRecord(timeRecord);
             // извлекаем id записи и удаляем соответствующую запись в БД
           //  db.delRec(acmi.id);
             // обновляем курсор
@@ -119,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadRecords() {
         recordsList = contentProvider.getRecords();
-        ListAdapter adapter = new RecordListAdapter(getApplicationContext(), R.id.listView, recordsList);
+        adapter = new RecordListAdapter(getApplicationContext(), R.id.listView, recordsList);
         ListView lvData = (ListView) findViewById(R.id.listView);
         lvData.setAdapter(adapter);
     }
