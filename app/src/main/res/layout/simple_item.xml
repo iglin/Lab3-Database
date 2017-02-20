@@ -18,5 +18,7 @@
         android:id="@+id/textItemNumber"
         android:layout_weight="1"
         android:textSize="18sp"
-        android:textStyle="normal|bold" />
+        android:textStyle="normal|bold"
+        android:textAlignment="textEnd" />
+
 </LinearLayout>

@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/textView13"
             android:layout_weight="1"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:padding="3dp" />
 
         <TextView
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/tvStartDate"
             android:layout_weight="1"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:padding="3dp"
             android:onClick="showStartDateDialog" />
 
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/tvStartTime"
             android:layout_weight="1"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:padding="3dp"
             android:onClick="showStartTimeDialog" />
     </LinearLayout>
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/textView14"
             android:layout_weight="1"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:padding="3dp" />
 
         <TextView
@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/tvEndDate"
             android:layout_weight="1"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:padding="3dp"
             android:onClick="showEndDateDialog" />
 
@@ -77,8 +77,12 @@
             android:layout_height="wrap_content"
             android:id="@+id/tvEndTime"
             android:layout_weight="1"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:padding="3dp"
             android:onClick="showEndTimeDialog" />
     </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="30dp" />
 </LinearLayout>

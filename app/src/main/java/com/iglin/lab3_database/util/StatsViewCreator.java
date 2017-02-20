@@ -74,32 +74,16 @@ public class StatsViewCreator {
             @Override
             public void onClick(View view) {
                 Cursor cursor = contentProvider.getMostFrequentActivities(activity.getStartingTime(), activity.getEndingTime());
-                //activity.startManagingCursor(cursor);
 
-                // формируем столбцы сопоставления
                 String[] from = new String[] {
                         TimeTrackingDbContract.Statistics.COLUMN_NAME_TEXT,
                         TimeTrackingDbContract.Statistics.COLUMN_NAME_STAT
                 };
                 int[] to = new int[] { R.id.textItemText, R.id.textItemNumber };
 
-                // создаем адаптер и настраиваем список
-                SimpleCursorAdapter scAdapter = new SimpleCursorAdapter(activity.getApplicationContext(), R.layout.simple_item, cursor, from, to, 0);
-
-                ListView lvData = (ListView) rootView.findViewById(R.id.listStat);
-                lvData.setAdapter(scAdapter);
-
-             /*   int index = cursor.getColumnIndex(TimeTrackingDbContract.Statistics.COLUMN_NAME_TEXT);
-                String text = "";
-                while (cursor.moveToNext()) {
-                    index = cursor.getColumnIndex(TimeTrackingDbContract.Statistics.COLUMN_NAME_TEXT);
-                    text = cursor.getString(index);
-                    Log.i(getClass().getName(), text);
-                    index = cursor.getColumnIndex(TimeTrackingDbContract.Statistics.COLUMN_NAME_STAT);
-                    Log.i(getClass().getName(), String.valueOf(cursor.getInt(index)));
-                }
-                Snackbar.make(view, text, Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();*/
+                SimpleCursorAdapter mCursorAd = new SimpleCursorAdapter(activity, R.layout.simple_item, cursor, from, to, 0);
+                ListView mLv = (ListView) activity.findViewById(R.id.listStat);
+                mLv.setAdapter(mCursorAd);
             }
         });
         return rootView;
