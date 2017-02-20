@@ -19,6 +19,7 @@ import com.iglin.lab3_database.model.TimeRecord;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -340,6 +341,36 @@ public class TimeTrackingContentProvider {
         return db.rawQuery(query, stringArgs);
     }
 
+    @Nullable
+    public Cursor getSumTimeByCategories(Calendar startDate, Calendar endDate, List<TimeCategory> categories) {
+        if (categories == null || categories.isEmpty()) return null;
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
+        String categoryNamesParameters = " (";
+        String[] categoryNames = new String[categories.size()];
+        for (int i = 0; i < categories.size(); i++) {
+            TimeCategory category = categories.get(i);
+            categoryNames[i] = category.name();
+            categoryNamesParameters +="?";
+            if (categories.size() - 1 > i) categoryNamesParameters += ", ";
+        }
+        categoryNamesParameters += ") ";
+
+        String categoryAlias = "cat";
+
+        String query = "SELECT " + Category._ID + ", " + Category.COLUMN_NAME_NAME + " " + Statistics.COLUMN_NAME_TEXT
+                + ", (SELECT SUM(" + Record.COLUMN_NAME_MINUTES + ") FROM " + Record.TABLE_NAME
+                + " WHERE " + Record.COLUMN_NAME_CATEGORY + " = " + categoryAlias + "." + Category._ID
+                + " AND " + Record.COLUMN_NAME_START + " >= ? AND " + Record.COLUMN_NAME_END + " <= ?"
+                + ") " +  Statistics.COLUMN_NAME_STAT
+                + " FROM " + Category.TABLE_NAME + " " + categoryAlias
+                + " WHERE " + categoryAlias + "." + Category.COLUMN_NAME_NAME + " IN " + categoryNamesParameters;
+
+        String[] stringArgs = new String[] {String.valueOf(startDate.getTimeInMillis()), String.valueOf(endDate.getTimeInMillis())};
+
+        return db.rawQuery(query, concat(stringArgs, categoryNames));
+    }
+
     public void deleteRecord(int id) {
         TimeRecord timeRecord = getRecord(id);
         String selection = Record._ID + " = ?";
@@ -373,5 +404,11 @@ public class TimeTrackingContentProvider {
 
     private Bitmap bytesArrayToBitmap(byte[] image) {
         return BitmapFactory.decodeByteArray(image, 0, image.length);
+    }
+
+    private <T> T[] concat(T[] first, T[] second) {
+        T[] result = Arrays.copyOf(first, first.length + second.length);
+        System.arraycopy(second, 0, result, first.length, second.length);
+        return result;
     }
 }

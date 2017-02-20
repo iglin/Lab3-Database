@@ -17,6 +17,7 @@ import com.iglin.lab3_database.model.TimeRecord;
 import com.iglin.lab3_database.statistics.DiagramActivity;
 import com.iglin.lab3_database.statistics.MostDurableActivity;
 import com.iglin.lab3_database.statistics.MostFreqActivity;
+import com.iglin.lab3_database.statistics.SumByCategoriesActivity;
 
 import java.util.List;
 
@@ -111,6 +112,10 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.action_diag:
                 intent = new Intent(this, DiagramActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.action_cat:
+                intent = new Intent(this, SumByCategoriesActivity.class);
                 startActivity(intent);
                 return true;
         }

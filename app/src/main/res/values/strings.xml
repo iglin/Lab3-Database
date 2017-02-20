@@ -37,4 +37,5 @@
     <string name="title_activity_most_freq">MostFreqActivity</string>
     <string name="title_activity_most_durable">MostDurableActivity</string>
     <string name="title_activity_diagram">DiagramActivity</string>
+    <string name="title_activity_sum_by_categories">SumByCategoriesActivity</string>
 </resources>
