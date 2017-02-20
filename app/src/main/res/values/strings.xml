@@ -5,6 +5,7 @@
     <string name="action_max_sum">Наибольшее суммарное время</string>
     <string name="action_category_sum">Суммарное время по категориям</string>
     <string name="action_diag">Диаграмма</string>
+    <string name="stats">Статистика</string>
 
     <string name="date">Дата</string>
     <string name="time">Время</string>

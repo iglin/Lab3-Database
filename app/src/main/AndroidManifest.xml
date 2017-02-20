@@ -28,7 +28,6 @@
         </activity>
         <activity android:name=".NewRecordActivity" />
         <activity android:name=".DetailsActivity" />
-        <activity android:name=".MostFreqActivity" />
         <activity
             android:name=".StatsActivity"
             android:label="@string/title_activity_stats"

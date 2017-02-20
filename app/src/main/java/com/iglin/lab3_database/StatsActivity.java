@@ -63,6 +63,7 @@ public class StatsActivity extends AppCompatActivity implements DatePickerDialog
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle(getString(R.string.stats));
         setContentView(R.layout.activity_stats);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -76,26 +77,6 @@ public class StatsActivity extends AppCompatActivity implements DatePickerDialog
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String text = "";
-              /*  switch (mViewPager.) {
-                    case MOST_FREQ_STAT_ID:
-                        text = getString(R.string.action_freq);
-                    case MOST_DURABLE_STAT_ID:
-                        text = getString(R.string.action_max_sum);
-                    case SUM_ON_CATEGORIES_STAT_ID:
-                        text = getString(R.string.action_category_sum);
-                    case DIAGRAM_STAT_ID:
-                        text = getString(R.string.action_diag);
-                }*/
-                Snackbar.make(view, text, Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 
     public Calendar getStartingTime() {
@@ -112,28 +93,6 @@ public class StatsActivity extends AppCompatActivity implements DatePickerDialog
 
     public void setEndingTime(Calendar endingTime) {
         this.endingTime = endingTime;
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_stats, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     /**
