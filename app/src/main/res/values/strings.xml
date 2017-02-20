@@ -7,6 +7,7 @@
     <string name="action_diag">Диаграмма</string>
     <string name="stats">Статистика</string>
     <string name="diag_text">Суммарное время по категориям в минутах</string>
+    <string name="category">Категория</string>
 
     <string name="date">Дата</string>
     <string name="time">Время</string>

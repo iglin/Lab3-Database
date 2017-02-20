@@ -1,6 +1,7 @@
 package com.iglin.lab3_database.statistics;
 
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,6 +14,7 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -56,9 +58,13 @@ public class DiagramActivity  extends StatisticsActivity {
             entries.add(new PieEntry(cursor.getInt(indexStat), cursor.getString(indexName)));
         }
 
-        PieDataSet pieDataSet = new PieDataSet(entries, getString(R.string.action_diag));
+        PieDataSet pieDataSet = new PieDataSet(entries, getString(R.string.category));
+        pieDataSet.setColors(Color.RED, Color.BLUE, Color.GREEN, Color.MAGENTA, Color.YELLOW);
         PieChart pieChart = (PieChart) findViewById(R.id.chart);
-        pieChart.setContentDescription(getString(R.string.diag_text));
+        pieChart.setContentDescription(getString(R.string.category));
+        Description description = new Description();
+        description.setText(getString(R.string.diag_text));
+        pieChart.setDescription(description);
         Log.i(getClass().getName(), pieDataSet.toString());
         pieChart.setData(new PieData(pieDataSet));
     }
