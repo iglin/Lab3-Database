@@ -31,6 +31,10 @@
         <activity
             android:name=".StatsActivity"
             android:label="@string/title_activity_stats"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MostFreqActivity"
+            android:label="@string/title_activity_most_freq"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

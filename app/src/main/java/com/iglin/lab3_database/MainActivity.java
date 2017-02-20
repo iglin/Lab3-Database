@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (id == R.id.action_stats) {
-            Intent intent = new Intent(this, StatsActivity.class);
+            Intent intent = new Intent(this, MostFreqActivity.class);
             startActivity(intent);
             return true;
         }

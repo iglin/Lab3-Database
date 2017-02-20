@@ -30,12 +30,11 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class StatsActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener,
-        TimePickerDialog.OnTimeSetListener {
-    private static final int MOST_FREQ_STAT_ID = 0;
-    private static final int MOST_DURABLE_STAT_ID = 1;
-    private static final int SUM_ON_CATEGORIES_STAT_ID = 2;
-    private static final int DIAGRAM_STAT_ID = 3;
+public class StatsActivity extends AppCompatActivity  {
+    public static final int MOST_FREQ_STAT_ID = 0;
+    public static final int MOST_DURABLE_STAT_ID = 1;
+    public static final int SUM_ON_CATEGORIES_STAT_ID = 2;
+    public static final int DIAGRAM_STAT_ID = 3;
     private static final DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
     private static final DateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.ENGLISH);
 
@@ -98,7 +97,7 @@ public class StatsActivity extends AppCompatActivity implements DatePickerDialog
     /**
      * Dates stuff
      */
-    public void showStartTimeDialog(View view) {
+  /*  public void showStartTimeDialog(View view) {
         pickingStartTime = true;
         final Calendar c = startingTime;
         int hours = c.get(Calendar.HOUR_OF_DAY);
@@ -167,7 +166,7 @@ public class StatsActivity extends AppCompatActivity implements DatePickerDialog
             previousValue.set(Calendar.YEAR, newValue.get(Calendar.YEAR));
         }
         return previousValue;
-    }
+    }*/
 
     /**
      * A placeholder fragment containing a simple view.
@@ -199,7 +198,7 @@ public class StatsActivity extends AppCompatActivity implements DatePickerDialog
                                  Bundle savedInstanceState) {
             int section = getArguments().getInt(ARG_SECTION_NUMBER);
 
-            switch (section) {
+          /*  switch (section) {
                 case MOST_FREQ_STAT_ID:
                     return statsViewCreator.createMostFrequentStatsView((StatsActivity) this.getActivity(), inflater, container);
                 case MOST_DURABLE_STAT_ID:
@@ -208,7 +207,7 @@ public class StatsActivity extends AppCompatActivity implements DatePickerDialog
                     return statsViewCreator.createMostFrequentStatsView((StatsActivity) this.getActivity(), inflater, container);
                 case DIAGRAM_STAT_ID:
                     return statsViewCreator.createMostFrequentStatsView((StatsActivity) this.getActivity(), inflater, container);
-            }
+            }*/
             return null;
         }
     }
@@ -228,7 +227,7 @@ public class StatsActivity extends AppCompatActivity implements DatePickerDialog
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position);
+            return CustomPlaceholderFragment.newInstance(position);
         }
 
         @Override
