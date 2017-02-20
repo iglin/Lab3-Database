@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">Time Tracking</string>
     <string name="action_new">Новая запись</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_freq">Самые частые занятия</string>
+    <string name="action_max_sum">Наибольшее суммарное время</string>
+    <string name="action_category_sum">Суммарное время по категориям</string>
+    <string name="action_diag">Диаграмма</string>
 
     <string name="date">Дата</string>
     <string name="time">Время</string>
@@ -9,6 +12,8 @@
     <string name="start_time">Время начала</string>
     <string name="end_time">Время окончания</string>
     <string name="duration">Продолжительность</string>
+    <string name="from">С </string>
+    <string name="to">По </string>
     <string name="minutes">минут</string>
     <string name="pick_date">Выберите дату</string>
     <string name="pick_time">Выберите время</string>
@@ -22,4 +27,7 @@
     <string name="end_time_error">Пожалуйста, укажите время окончания.</string>
     <string name="time_error">Время начала должно быть меньше времени окончания.</string>
     <string name="photo">Фото</string>
+    <string name="title_activity_stats">StatsActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>

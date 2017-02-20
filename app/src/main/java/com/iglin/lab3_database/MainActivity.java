@@ -101,9 +101,14 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_new) {
             Intent intent = new Intent(this, NewRecordActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+        if (id == R.id.action_stats) {
+            Intent intent = new Intent(this, StatsActivity.class);
             startActivity(intent);
             return true;
         }
@@ -119,13 +124,10 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean onContextItemSelected(MenuItem item) {
         if (item.getItemId() == CM_DELETE_ID) {
-            // получаем из пункта контекстного меню данные по пункту списка
             AdapterView.AdapterContextMenuInfo acmi = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
             TimeRecord timeRecord = adapter.getItem(acmi.position);
             contentProvider.deleteRecord(timeRecord);
-            // извлекаем id записи и удаляем соответствующую запись в БД
-          //  db.delRec(acmi.id);
-            // обновляем курсор
+
             loadRecords();
             return true;
         }
