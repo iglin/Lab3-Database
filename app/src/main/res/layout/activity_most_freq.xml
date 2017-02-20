@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.iglin.lab3_database.MostFreqActivity">
+    tools:context="com.iglin.lab3_database.statistics.MostFreqActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"

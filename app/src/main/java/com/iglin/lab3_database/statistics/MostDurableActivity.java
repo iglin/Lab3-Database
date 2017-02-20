@@ -1,7 +1,5 @@
-package com.iglin.lab3_database;
+package com.iglin.lab3_database.statistics;
 
-import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,32 +7,30 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
-import com.iglin.lab3_database.db.TimeTrackingContentProvider;
+import com.iglin.lab3_database.R;
 import com.iglin.lab3_database.db.TimeTrackingDbContract;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Locale;
-
-public class MostFreqActivity extends StatisticsActivity {
-
+public class MostDurableActivity extends StatisticsActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setTitle(getString(R.string.action_max_sum));
+
+
+        TextView textView = (TextView) findViewById(R.id.textStatsHeader);
+        textView.setText(getString(R.string.action_max_sum));
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Cursor cursor = contentProvider.getMostFrequentActivities(startingTime, endingTime);
+                Cursor cursor = contentProvider.getMostDurableActivities(startingTime, endingTime);
 
                 String[] from = new String[] {
                         TimeTrackingDbContract.Statistics.COLUMN_NAME_TEXT,
@@ -48,6 +44,4 @@ public class MostFreqActivity extends StatisticsActivity {
             }
         });
     }
-
-
 }

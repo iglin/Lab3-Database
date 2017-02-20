@@ -1,11 +1,8 @@
 package com.iglin.lab3_database;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.ContextMenu;
@@ -13,15 +10,12 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 
 import com.iglin.lab3_database.db.TimeTrackingContentProvider;
-import com.iglin.lab3_database.db.TimeTrackingDbContract;
-import com.iglin.lab3_database.model.TimeCategory;
 import com.iglin.lab3_database.model.TimeRecord;
+import com.iglin.lab3_database.statistics.MostDurableActivity;
+import com.iglin.lab3_database.statistics.MostFreqActivity;
 
 import java.util.List;
 
@@ -100,17 +94,20 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        if (id == R.id.action_new) {
-            Intent intent = new Intent(this, NewRecordActivity.class);
-            startActivity(intent);
-            return true;
-        }
-
-        if (id == R.id.action_stats) {
-            Intent intent = new Intent(this, MostFreqActivity.class);
-            startActivity(intent);
-            return true;
+        Intent intent;
+        switch (id) {
+            case R.id.action_new:
+                intent = new Intent(this, NewRecordActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.action_most_freq:
+                intent = new Intent(this, MostFreqActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.action_dur:
+                intent = new Intent(this, MostDurableActivity.class);
+                startActivity(intent);
+                return true;
         }
 
         return super.onOptionsItemSelected(item);

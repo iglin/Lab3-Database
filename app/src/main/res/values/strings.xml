@@ -33,4 +33,5 @@
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="find">Найти</string>
     <string name="title_activity_most_freq">MostFreqActivity</string>
+    <string name="title_activity_most_durable">MostDurableActivity</string>
 </resources>

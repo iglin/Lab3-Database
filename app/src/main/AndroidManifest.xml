@@ -29,12 +29,12 @@
         <activity android:name=".NewRecordActivity" />
         <activity android:name=".DetailsActivity" />
         <activity
-            android:name=".StatsActivity"
-            android:label="@string/title_activity_stats"
+            android:name=".statistics.MostFreqActivity"
+            android:label="@string/title_activity_most_freq"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".MostFreqActivity"
-            android:label="@string/title_activity_most_freq"
+            android:name=".statistics.MostDurableActivity"
+            android:label="@string/title_activity_most_durable"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

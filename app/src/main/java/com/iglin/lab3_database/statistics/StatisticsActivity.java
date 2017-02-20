@@ -1,4 +1,4 @@
-package com.iglin.lab3_database;
+package com.iglin.lab3_database.statistics;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -14,6 +14,7 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.iglin.lab3_database.R;
 import com.iglin.lab3_database.db.TimeTrackingContentProvider;
 import com.iglin.lab3_database.db.TimeTrackingDbContract;
 
@@ -45,12 +46,7 @@ public abstract class StatisticsActivity extends AppCompatActivity implements Da
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        setTitle(getString(R.string.stats));
-
         contentProvider = new TimeTrackingContentProvider(getApplicationContext());
-
-        TextView textView = (TextView) findViewById(R.id.textStatsHeader);
-        textView.setText(getString(R.string.action_freq));
 
         Calendar current = Calendar.getInstance();
         current.set(Calendar.MILLISECOND, 0);
@@ -60,7 +56,7 @@ public abstract class StatisticsActivity extends AppCompatActivity implements Da
         startingTime = previous;
         endingTime = current;
 
-        textView = (TextView) findViewById(R.id.tvStartDate);
+        TextView textView = (TextView) findViewById(R.id.tvStartDate);
         textView.setText(dateFormat.format(previous.getTime()));
 
         textView = (TextView) findViewById(R.id.tvEndDate);
@@ -71,7 +67,6 @@ public abstract class StatisticsActivity extends AppCompatActivity implements Da
         textView = (TextView) findViewById(R.id.tvEndTime);
         textView.setText(timeFormat.format(current.getTime()));
     }
-
 
     /**
      * Dates stuff

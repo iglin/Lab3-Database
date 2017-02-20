@@ -2,11 +2,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.iglin.lab3_database.MainActivity">
+    <item android:title="@string/action_diag"
+        android:id="@+id/action_diag" />
+    <item android:title="@string/action_freq"
+        android:id="@+id/action_most_freq" />
+    <item android:title="@string/action_max_sum"
+        android:id="@+id/action_dur" />
     <item
         android:id="@+id/action_new"
         android:orderInCategory="100"
         android:title="@string/action_new"
         app:showAsAction="never" />
-    <item android:title="@string/stats"
-        android:id="@+id/action_stats" />
+    <item android:title="@string/action_category_sum"
+        android:id="@+id/action_cat" />
 </menu>

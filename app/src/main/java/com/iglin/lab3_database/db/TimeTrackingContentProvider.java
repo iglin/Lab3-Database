@@ -312,7 +312,8 @@ public class TimeTrackingContentProvider {
                 + " WHERE " + Record.COLUMN_NAME_CATEGORY + " = " + categoryAlias + "." + Category._ID
                 + " AND " + Record.COLUMN_NAME_START + " >= ? AND " + Record.COLUMN_NAME_END + " <= ?"
                 + ") " +  Statistics.COLUMN_NAME_STAT
-                + " FROM " + Category.TABLE_NAME + " " + categoryAlias;
+                + " FROM " + Category.TABLE_NAME + " " + categoryAlias
+                + " ORDER BY " + Statistics.COLUMN_NAME_STAT + " DESC";
 
         String[] stringArgs = new String[] {String.valueOf(startDate.getTimeInMillis()), String.valueOf(endDate.getTimeInMillis())};
 
