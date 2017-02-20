@@ -6,14 +6,15 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.ContextMenu;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.iglin.lab3_database.db.TimeTrackingContentProvider;
 import com.iglin.lab3_database.model.TimeRecord;
+import com.iglin.lab3_database.statistics.DiagramActivity;
 import com.iglin.lab3_database.statistics.MostDurableActivity;
 import com.iglin.lab3_database.statistics.MostFreqActivity;
 
@@ -106,6 +107,10 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.action_dur:
                 intent = new Intent(this, MostDurableActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.action_diag:
+                intent = new Intent(this, DiagramActivity.class);
                 startActivity(intent);
                 return true;
         }

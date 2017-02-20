@@ -9,7 +9,10 @@ import android.graphics.BitmapFactory;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.iglin.lab3_database.db.TimeTrackingDbContract.*;
+import com.iglin.lab3_database.db.TimeTrackingDbContract.Category;
+import com.iglin.lab3_database.db.TimeTrackingDbContract.Picture;
+import com.iglin.lab3_database.db.TimeTrackingDbContract.Record;
+import com.iglin.lab3_database.db.TimeTrackingDbContract.Statistics;
 import com.iglin.lab3_database.model.RecordPicture;
 import com.iglin.lab3_database.model.TimeCategory;
 import com.iglin.lab3_database.model.TimeRecord;

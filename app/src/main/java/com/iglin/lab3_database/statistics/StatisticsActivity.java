@@ -2,21 +2,16 @@ package com.iglin.lab3_database.statistics;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.database.Cursor;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.DatePicker;
-import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.iglin.lab3_database.R;
 import com.iglin.lab3_database.db.TimeTrackingContentProvider;
-import com.iglin.lab3_database.db.TimeTrackingDbContract;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -35,19 +30,21 @@ public abstract class StatisticsActivity extends AppCompatActivity implements Da
     private static final DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
     private static final DateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.ENGLISH);
 
-    Calendar startingTime;
-    Calendar endingTime;
-    boolean pickingStartTime;
+    protected Calendar startingTime;
+    protected Calendar endingTime;
+    protected boolean pickingStartTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_most_freq);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
+        setTitle(getString(R.string.stats));
         contentProvider = new TimeTrackingContentProvider(getApplicationContext());
+    }
 
+    protected abstract void updateData();
+
+    void fillDatesHeader() {
         Calendar current = Calendar.getInstance();
         current.set(Calendar.MILLISECOND, 0);
         current.set(Calendar.SECOND, 0);
@@ -114,6 +111,7 @@ public abstract class StatisticsActivity extends AppCompatActivity implements Da
             TextView textView = (TextView) findViewById(R.id.tvEndDate);
             textView.setText(dateFormat.format(endingTime.getTime()));
         }
+        updateData();
     }
     @Override
     public void onTimeSet(TimePicker timePicker, int hour, int minute) {
@@ -128,6 +126,7 @@ public abstract class StatisticsActivity extends AppCompatActivity implements Da
             TextView textView = (TextView) findViewById(R.id.tvEndTime);
             textView.setText(timeFormat.format(endingTime.getTime()));
         }
+        updateData();
     }
 
     private Calendar recalculateTime(boolean updateTime, Calendar previousValue, Calendar newValue) {

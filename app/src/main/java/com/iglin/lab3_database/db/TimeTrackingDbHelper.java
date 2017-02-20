@@ -5,11 +5,11 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.iglin.lab3_database.model.*;
+import com.iglin.lab3_database.model.TimeCategory;
 
-import java.util.Calendar;
-
-import static com.iglin.lab3_database.db.TimeTrackingDbContract.*;
+import static com.iglin.lab3_database.db.TimeTrackingDbContract.Category;
+import static com.iglin.lab3_database.db.TimeTrackingDbContract.Picture;
+import static com.iglin.lab3_database.db.TimeTrackingDbContract.Record;
 
 /**
  * Created by user on 18.02.2017.

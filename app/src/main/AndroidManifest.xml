@@ -35,6 +35,10 @@
         <activity
             android:name=".statistics.MostDurableActivity"
             android:label="@string/title_activity_most_durable"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".statistics.DiagramActivity"
+            android:label="@string/title_activity_diagram"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

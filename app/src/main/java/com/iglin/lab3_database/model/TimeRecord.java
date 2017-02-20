@@ -1,6 +1,5 @@
 package com.iglin.lab3_database.model;
 
-import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
