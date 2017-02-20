@@ -201,10 +201,9 @@ public class StatsActivity extends AppCompatActivity implements DatePickerDialog
 
             switch (section) {
                 case MOST_FREQ_STAT_ID:
-                    return statsViewCreator.createMostFrequentStatsView((StatsActivity) this.getActivity(),
-                            inflater, container);
-                case MOST_DURABLE_STAT_ID:
                     return statsViewCreator.createMostFrequentStatsView((StatsActivity) this.getActivity(), inflater, container);
+                case MOST_DURABLE_STAT_ID:
+                    return statsViewCreator.createMostDurableStatsView((StatsActivity) this.getActivity(), inflater, container);
                 case SUM_ON_CATEGORIES_STAT_ID:
                     return statsViewCreator.createMostFrequentStatsView((StatsActivity) this.getActivity(), inflater, container);
                 case DIAGRAM_STAT_ID:

@@ -319,6 +319,23 @@ public class TimeTrackingContentProvider {
         return db.rawQuery(query, stringArgs);
     }
 
+    public Cursor getMostDurableActivities(Calendar startDate, Calendar endDate) {
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+        String categoryAlias = "cat";
+
+        String query = "SELECT " + Category._ID + ", " + Category.COLUMN_NAME_NAME + " " + Statistics.COLUMN_NAME_TEXT
+                + ", (SELECT SUM(" + Record.COLUMN_NAME_MINUTES + ") FROM " + Record.TABLE_NAME
+                + " WHERE " + Record.COLUMN_NAME_CATEGORY + " = " + categoryAlias + "." + Category._ID
+                + " AND " + Record.COLUMN_NAME_START + " >= ? AND " + Record.COLUMN_NAME_END + " <= ?"
+                + ") " +  Statistics.COLUMN_NAME_STAT
+                + " FROM " + Category.TABLE_NAME + " " + categoryAlias
+                + " ORDER BY " + Statistics.COLUMN_NAME_STAT + " DESC";
+
+        String[] stringArgs = new String[] {String.valueOf(startDate.getTimeInMillis()), String.valueOf(endDate.getTimeInMillis())};
+
+        return db.rawQuery(query, stringArgs);
+    }
+
     public void deleteRecord(int id) {
         TimeRecord timeRecord = getRecord(id);
         String selection = Record._ID + " = ?";

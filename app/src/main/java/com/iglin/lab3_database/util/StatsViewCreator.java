@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
@@ -63,13 +64,11 @@ public class StatsViewCreator {
         textView.setText(timeFormat.format(current.getTime()));
     }
 
-
-
     public View createMostFrequentStatsView(final StatsActivity activity, LayoutInflater inflater, final ViewGroup container) {
         final View rootView = inflater.inflate(R.layout.most_freq_fragment, container, false);
         fillHeader(activity, rootView, activity.getString(R.string.action_freq));
 
-        FloatingActionButton fab = (FloatingActionButton) activity.findViewById(R.id.fab);
+        Button fab = (Button) rootView.findViewById(R.id.buttonFreq);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,4 +87,29 @@ public class StatsViewCreator {
         });
         return rootView;
     }
+
+    public View createMostDurableStatsView(final StatsActivity activity, LayoutInflater inflater, final ViewGroup container) {
+        final View rootView = inflater.inflate(R.layout.most_durable_fragment, container, false);
+        fillHeader(activity, rootView, activity.getString(R.string.action_max_sum));
+
+        Button fab = (Button) rootView.findViewById(R.id.buttonDur);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Cursor cursor = contentProvider.getMostDurableActivities(activity.getStartingTime(), activity.getEndingTime());
+
+                String[] from = new String[] {
+                        TimeTrackingDbContract.Statistics.COLUMN_NAME_TEXT,
+                        TimeTrackingDbContract.Statistics.COLUMN_NAME_STAT
+                };
+                int[] to = new int[] { R.id.textItemText, R.id.textItemNumber };
+
+                SimpleCursorAdapter mCursorAd = new SimpleCursorAdapter(activity, R.layout.simple_item, cursor, from, to, 0);
+                ListView mLv = (ListView) activity.findViewById(R.id.listStatDur);
+                mLv.setAdapter(mCursorAd);
+            }
+        });
+        return rootView;
+    }
+
 }
