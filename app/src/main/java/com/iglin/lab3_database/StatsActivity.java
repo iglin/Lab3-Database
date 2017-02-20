@@ -28,7 +28,6 @@ import com.iglin.lab3_database.util.StatsViewCreator;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 public class StatsActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener,
@@ -45,7 +44,7 @@ public class StatsActivity extends AppCompatActivity implements DatePickerDialog
     private Calendar endingTime;
     private boolean pickingStartTime;
 
-    private static final StatsViewCreator statsViewCreator = new StatsViewCreator();
+    private static StatsViewCreator statsViewCreator;
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -68,6 +67,8 @@ public class StatsActivity extends AppCompatActivity implements DatePickerDialog
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        statsViewCreator = new StatsViewCreator(getApplicationContext());
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -76,12 +77,22 @@ public class StatsActivity extends AppCompatActivity implements DatePickerDialog
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                String text = "";
+              /*  switch (mViewPager.) {
+                    case MOST_FREQ_STAT_ID:
+                        text = getString(R.string.action_freq);
+                    case MOST_DURABLE_STAT_ID:
+                        text = getString(R.string.action_max_sum);
+                    case SUM_ON_CATEGORIES_STAT_ID:
+                        text = getString(R.string.action_category_sum);
+                    case DIAGRAM_STAT_ID:
+                        text = getString(R.string.action_diag);
+                }*/
+                Snackbar.make(view, text, Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -224,15 +235,15 @@ public class StatsActivity extends AppCompatActivity implements DatePickerDialog
             return fragment;
         }
 
-
-
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             int section = getArguments().getInt(ARG_SECTION_NUMBER);
+
             switch (section) {
                 case MOST_FREQ_STAT_ID:
-                    return statsViewCreator.createMostFrequentStatsView((StatsActivity) this.getActivity(), inflater, container);
+                    return statsViewCreator.createMostFrequentStatsView((StatsActivity) this.getActivity(),
+                            inflater, container);
                 case MOST_DURABLE_STAT_ID:
                     return statsViewCreator.createMostFrequentStatsView((StatsActivity) this.getActivity(), inflater, container);
                 case SUM_ON_CATEGORIES_STAT_ID:
@@ -243,7 +254,6 @@ public class StatsActivity extends AppCompatActivity implements DatePickerDialog
             return null;
         }
     }
-
 
 
     /**

@@ -31,4 +31,9 @@ public final class TimeTrackingDbContract {
         public static final String COLUMN_NAME_MINUTES = "minutes";
         public static final String COLUMN_NAME_CATEGORY = "category";
     }
+
+    public static abstract class Statistics implements BaseColumns {
+        public static final String COLUMN_NAME_TEXT = "name";
+        public static final String COLUMN_NAME_STAT = "stat";
+    }
 }

@@ -16,6 +16,7 @@ import com.iglin.lab3_database.model.TimeRecord;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -300,6 +301,22 @@ public class TimeTrackingContentProvider {
         cursor.close();
         db.close();
         return list;
+    }
+
+    public Cursor getMostFrequentActivities(Calendar startDate, Calendar endDate) {
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+        String categoryAlias = "cat";
+
+        String query = "SELECT " + Category._ID + ", " + Category.COLUMN_NAME_NAME + " " + Statistics.COLUMN_NAME_TEXT
+                + ", (SELECT COUNT(*) FROM " + Record.TABLE_NAME
+                + " WHERE " + Record.COLUMN_NAME_CATEGORY + " = " + categoryAlias + "." + Category._ID
+                + " AND " + Record.COLUMN_NAME_START + " >= ? AND " + Record.COLUMN_NAME_END + " <= ?"
+                + ") " +  Statistics.COLUMN_NAME_STAT
+                + " FROM " + Category.TABLE_NAME + " " + categoryAlias;
+
+        String[] stringArgs = new String[] {String.valueOf(startDate.getTimeInMillis()), String.valueOf(endDate.getTimeInMillis())};
+
+        return db.rawQuery(query, stringArgs);
     }
 
     public void deleteRecord(int id) {

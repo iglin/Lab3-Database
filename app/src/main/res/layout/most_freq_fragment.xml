@@ -18,5 +18,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             layout="@layout/stats_header" />
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/listStat" />
+
     </LinearLayout>
+
 </RelativeLayout>
